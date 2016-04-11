@@ -1,7 +1,7 @@
 /** 
 *@ProjectName: TTRabbitMQ 
 *@FileName: Send.java 
-*@Date: 2016Äê4ÔÂ10ÈÕ 
+*@Date: 2016ï¿½ï¿½4ï¿½ï¿½10ï¿½ï¿½ 
 *@Copyright: 2016 tianjunwei All rights reserved. 
 */  
 package com.tianjunwei;
@@ -15,35 +15,35 @@ import com.rabbitmq.client.ConnectionFactory;
 /**    
 * @Title: Send.java  
 * @Package com.tianjunwei  
-* @Description: ·¢ËÍÊı¾İ 
+* @Description: å‘é€æ•°æ® 
 * @author tianjunwei  tiantianjunwei@126.com   
-* @date 2016Äê4ÔÂ10ÈÕ ÏÂÎç10:16:17  
+* @date 2016å¹´4æœˆ10æ—¥ ä¸‹åˆ10:16:17  
 * @version V1.0    
 */
 public class Send {
-	//¶ÓÁĞÃû³Æ  
+	//é˜Ÿåˆ—åç§°  
     private final static String QUEUE_NAME = "hello";  
   
     public static void main(String[] argv) throws java.io.IOException, TimeoutException  
     {  
         /** 
-         * ´´½¨Á¬½ÓÁ¬½Óµ½MabbitMQ 
+         * åˆ›å»ºè¿æ¥è¿æ¥åˆ°MabbitMQ 
          */  
         ConnectionFactory factory = new ConnectionFactory();  
-        //ÉèÖÃMabbitMQËùÔÚÖ÷»úip»òÕßÖ÷»úÃû  
+        //è®¾ç½®MabbitMQæ‰€åœ¨ä¸»æœºipæˆ–è€…ä¸»æœºå  
         factory.setHost("localhost");  
-        //´´½¨Ò»¸öÁ¬½Ó  
+        //åˆ›å»ºä¸€ä¸ªè¿æ¥  
         Connection connection = factory.newConnection();  
-        //´´½¨Ò»¸öÆµµÀ  
+        //åˆ›å»ºä¸€ä¸ªé¢‘é“  
         Channel channel = connection.createChannel();  
-        //Ö¸¶¨Ò»¸ö¶ÓÁĞ  
+        //æŒ‡å®šä¸€ä¸ªé˜Ÿåˆ—  
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);  
-        //·¢ËÍµÄÏûÏ¢  
+        //å‘é€çš„æ¶ˆæ¯  
         String message = "hello world! tian";  
-        //Íù¶ÓÁĞÖĞ·¢³öÒ»ÌõÏûÏ¢  
+        //å¾€é˜Ÿåˆ—ä¸­å‘å‡ºä¸€æ¡æ¶ˆæ¯  
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes());  
         System.out.println(" [x] Sent '" + message + "'");  
-        //¹Ø±ÕÆµµÀºÍÁ¬½Ó  
+        //å…³é—­é¢‘é“å’Œè¿æ¥  
         channel.close();  
         connection.close();  
      }  
