@@ -7,6 +7,14 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;  
 import com.rabbitmq.client.QueueingConsumer;  
   
+/**
+* @Title: Work.java  
+* @Package com.tianjunwei.two  
+* @Description:  指定工作队列消费
+* @author tianjunwei  tiantianjunwei@126.com   
+* @date 2016年4月12日 下午11:26:40  
+* @version V1.0
+ */
 public class Work  {  
     //队列名称  
     private final static String QUEUE_NAME = "workqueue";  

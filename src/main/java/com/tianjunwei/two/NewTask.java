@@ -8,6 +8,14 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;  
   
+/**
+* @Title: NewTask.java  
+* @Package com.tianjunwei.two  
+* @Description: 工作队列 
+* @author tianjunwei  tiantianjunwei@126.com   
+* @date 2016年4月12日 下午11:26:07  
+* @version V1.0
+ */
 public class NewTask  
 {  
     //队列名称  
