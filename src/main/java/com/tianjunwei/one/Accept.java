@@ -39,7 +39,7 @@ public class Accept {
         //创建队列消费者  
         QueueingConsumer consumer = new QueueingConsumer(channel);  
         //指定消费队列  
-        channel.basicConsume(QUEUE_NAME, true, consumer);  
+        channel.basicConsume(QUEUE_NAME, true, consumer);
         while (true){  
             //nextDelivery是一个阻塞方法（内部实现其实是阻塞队列的take方法）  
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();  

@@ -7,8 +7,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;  
 import com.rabbitmq.client.QueueingConsumer;  
   
-public class Work  
-{  
+public class Work  {  
     //队列名称  
     private final static String QUEUE_NAME = "workqueue";  
   
@@ -25,9 +24,12 @@ public class Work
         System.out.println(hashCode  
                 + " [*] Waiting for messages. To exit press CTRL+C");  
       
+        
         QueueingConsumer consumer = new QueueingConsumer(channel);  
         // 指定消费队列  
-        channel.basicConsume(QUEUE_NAME, true, consumer);  
+        //打开应答机制
+        boolean ack = false;
+        channel.basicConsume(QUEUE_NAME, ack, consumer);  
         while (true)  
         {  
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();  
@@ -36,6 +38,8 @@ public class Work
             System.out.println(hashCode + " [x] Received '" + message + "'");  
             doWork(message);  
             System.out.println(hashCode + " [x] Done");  
+            //发送应答
+            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
   
         }  
   
