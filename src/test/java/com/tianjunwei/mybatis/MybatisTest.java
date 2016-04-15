@@ -32,7 +32,7 @@ public class MybatisTest {
 	
 	@Test 
 	public void get(){
-		Log log = sqlSessionTemplate.selectOne(Log.class.getName()+"get");
+		Log log = sqlSessionTemplate.selectOne(Log.class.getName()+".get");
 		System.err.println(log.getLogInfo());
 	}
 
