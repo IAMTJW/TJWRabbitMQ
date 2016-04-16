@@ -3,9 +3,12 @@ package com.tianjunwei.mq;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tianjunwei.mq.client.MQConsumer;
 import com.tianjunwei.mq.server.MQProducer;
 
 /**
@@ -20,9 +23,14 @@ import com.tianjunwei.mq.server.MQProducer;
 @ContextConfiguration(locations = "classpath:applicationContext_test.xml")
 public class MQTest {
 	
+	@Autowired
+	MQProducer mqProducer;
+	
+	@Autowired
+	private AmqpTemplate amqpTemplate;
+	
 	@Test
 	public void test(){
-		MQProducer mqProducer = new MQProducer();
 		mqProducer.sendDataToCrQueue("hello rabbitmq");
 	}
 	

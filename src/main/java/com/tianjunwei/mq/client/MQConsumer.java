@@ -14,12 +14,13 @@ import org.springframework.amqp.core.MessageListener;
  * @author tianjunwei
  * @date 2016年4月16日下午5:29:04
  * @modify by user: tianjunwei
- * @modify by reason: TODO
+ * @modify by reason:
  * @version V1.0
  */
 public class MQConsumer implements  MessageListener{
 	
+	@Override
     public void onMessage(Message message) {
-        System.out.println(" data :" + message.getBody());
+        System.out.println(" data ----------------------------------------:" + message.getBody());
     }
 }

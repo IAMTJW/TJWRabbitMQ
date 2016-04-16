@@ -6,7 +6,10 @@
 */ 
 package com.tianjunwei.mq.server;
 
+import javax.annotation.Resource;
+
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -19,10 +22,25 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class MQProducer {
 	
-	@Autowired
     private AmqpTemplate amqpTemplate;
      
-    public void sendDataToCrQueue(Object obj) {
+    /**
+	 * @return the amqpTemplate
+	 */
+	public AmqpTemplate getAmqpTemplate() {
+		return amqpTemplate;
+	}
+
+	/**
+	 * @param amqpTemplate the amqpTemplate to set
+	 */
+	public void setAmqpTemplate(RabbitTemplate amqpTemplate) {
+		this.amqpTemplate = amqpTemplate;
+	}
+
+	public void sendDataToCrQueue(Object obj) {
         amqpTemplate.convertAndSend("queue_one_key", obj);
+       System.err.println(amqpTemplate.receiveAndConvert("queue_one_key"));
+       
     }   
 }

@@ -2,8 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
-	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit" xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="  
         http://www.springframework.org/schema/beans  
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
@@ -15,11 +14,14 @@
         http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd"
 	default-autowire="byName">
 
-	<!-- 连接服务配置 -->
+	<!-- 连接服务配置 --><!-- username="guest" password="guest" port="5672"  -->
 	<rabbit:connection-factory id="connectionFactory"
-		host="localhost" username="guest" password="guest" port="5672" />
+		host="localhost" channel-cache-size="25"/>
 
-	<rabbit:admin connection-factory="connectionFactory" />
+	<bean id="rabbitAdmin"
+        class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+        <constructor-arg ref="connectionFactory" />
+    </bean>
 
 	<!-- queue 队列声明 -->
 	<rabbit:queue id="queue_one" durable="true" auto-delete="false"
@@ -38,6 +40,13 @@
 	<bean id="jsonMessageConverter" class="com.tianjunwei.mq.util.FastJSONMessageConverter"></bean>
 
 	<!-- spring template声明 -->
-	<rabbit:template exchange="my-mq-exchange" id="amqpTemplate"
-		connection-factory="connectionFactory" message-converter="jsonMessageConverter" />
+	
+	<bean id="amqpTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+		<constructor-arg ref="connectionFactory"></constructor-arg>
+		<property name="routingKey" value="my-mq-exchange"></property>
+		<property name="queue" value="queue_one"></property>
+		<property name="messageConverter" ref="jsonMessageConverter"></property>
+	</bean>
+	<bean id="mqProducer" class="com.tianjunwei.mq.server.MQProducer"></bean>
+
 </beans>
