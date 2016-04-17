@@ -9,6 +9,8 @@ package com.tianjunwei.mq.server;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import com.tianjunwei.mq.MyRabbitTemplate;
+
 /**
  * 
  * @author tianjunwei
@@ -19,7 +21,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
  */
 public class MQProducer {
 	
-    private AmqpTemplate amqpTemplate;
+    private MyRabbitTemplate amqpTemplate;
      
     /**
 	 * @return the amqpTemplate
@@ -31,14 +33,14 @@ public class MQProducer {
 	/**
 	 * @param amqpTemplate the amqpTemplate to set
 	 */
-	public void setAmqpTemplate(RabbitTemplate amqpTemplate) {
+	public void setAmqpTemplate(MyRabbitTemplate amqpTemplate) {
 		this.amqpTemplate = amqpTemplate;
 	}
 
 	public void sendDataToCrQueue(Object obj) {
-        amqpTemplate.convertAndSend("queue_ones", obj);
-        amqpTemplate.convertAndSend("queue_ones", obj);
-        amqpTemplate.convertAndSend(obj);
+        amqpTemplate.convertAndSend("log-exchange","rout_trace", obj);
+        amqpTemplate.convertAndSend("log-exchange","rout_trace", obj);
+        
        //System.err.println(amqpTemplate.receiveAndConvert("queue_one_key"));
        
     }   

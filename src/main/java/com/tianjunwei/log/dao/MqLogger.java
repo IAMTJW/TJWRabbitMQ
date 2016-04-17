@@ -9,6 +9,10 @@ package com.tianjunwei.log.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.tianjunwei.mq.MyRabbitTemplate;
 
 /**
  * 模仿ch.qos.logback.classic.Logger这个类
@@ -20,9 +24,17 @@ import org.slf4j.Marker;
  */
 public class MqLogger implements Logger {
 
+	private static final String exchange = "log_exchange";
+	private static final String rout_trace = "rout_trace";
+	private static final String rout_info = "rout_info";
+	private static final String rout_debug = "rout_debug";
+	private static final String rout_warn = "rout_warn";
+	private static final String rout_error = "rout_error";
 	
 	Logger log ;
 	
+	@Autowired
+	private MyRabbitTemplate amqpTemplate;
 	
 	public MqLogger(Class<?> clazz) {
 		log = LoggerFactory.getLogger(clazz);
@@ -56,6 +68,9 @@ public class MqLogger implements Logger {
 	@Override
 	public void trace(String msg) {
 		log.trace(msg);
+		if(amqpTemplate.isStore()){
+			amqpTemplate.convertAndSend(exchange, rout_trace, msg);
+		}
 	}
 
 	/**
@@ -67,6 +82,9 @@ public class MqLogger implements Logger {
 	@Override
 	public void trace(String format, Object arg) {
 		log.trace(format, arg);
+		if(amqpTemplate.isStore()){
+			amqpTemplate.convertAndSend(exchange, rout_trace, arg);
+		}
 	}
 
 	/**
@@ -79,6 +97,9 @@ public class MqLogger implements Logger {
 	@Override
 	public void trace(String format, Object arg1, Object arg2) {
 		log.trace(format, arg1, arg2);
+		if(amqpTemplate.isStore()){
+			amqpTemplate.convertAndSend(exchange, rout_trace, arg1.toString()+arg2.toString());
+		}
 	}
 
 	/**
@@ -101,6 +122,10 @@ public class MqLogger implements Logger {
 	@Override
 	public void trace(String msg, Throwable t) {
 		log.trace(msg, t);
+		if(amqpTemplate.isStore()){
+			amqpTemplate.convertAndSend(exchange, rout_trace,t);
+		}
+		
 	}
 
 	/**
