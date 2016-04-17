@@ -1,16 +1,13 @@
 /** 
-*@ProjectName:TTRabbitMQ 
-*@FileName: MQProducer.java
-*@Date: 2016年4月16日下午4:48:51
-*@Copyright: 2016 tianjunwei All rights reserved. 
-*/ 
+ * @ProjectName:TTRabbitMQ 
+ * @FileName: MQProducer.java
+ * @Date: 2016年4月16日下午4:48:51
+ * @Copyright: 2016 tianjunwei All rights reserved. 
+ */ 
 package com.tianjunwei.mq.server;
-
-import javax.annotation.Resource;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 
