@@ -24,7 +24,7 @@ import com.rabbitmq.client.QueueingConsumer;
 public class Accept {
 	
 	 //队列名称  
-    private final static String QUEUE_NAME = "hello";  
+    private final static String QUEUE_NAME = "queue_one";  
   
     public static void main(String[] argv) throws java.io.IOException,  java.lang.InterruptedException, TimeoutException  {  
         //打开连接和创建频道，与发送端一样  

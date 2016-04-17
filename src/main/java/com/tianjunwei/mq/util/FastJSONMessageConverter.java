@@ -8,8 +8,6 @@ package com.tianjunwei.mq.util;
 
 import java.io.UnsupportedEncodingException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.AbstractMessageConverter;
@@ -26,10 +24,6 @@ import com.alibaba.fastjson.JSON;
  * @version V1.0
  */
 public class FastJSONMessageConverter extends AbstractMessageConverter {
-	
-
-
-	private static Logger log = LoggerFactory.getLogger(FastJSONMessageConverter.class);
 	 
     public static final String DEFAULT_CHARSET = "UTF-8";
  

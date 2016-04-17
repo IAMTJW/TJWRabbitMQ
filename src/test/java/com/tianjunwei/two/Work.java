@@ -17,7 +17,7 @@ import com.rabbitmq.client.QueueingConsumer;
  */
 public class Work  {  
     //队列名称  
-    private final static String QUEUE_NAME = "workqueue";  
+    private final static String QUEUE_NAME = "queue_one";  
   
     public static void main(String[] argv) throws java.io.IOException,java.lang.InterruptedException, TimeoutException {  
         //区分不同工作进程的输出  

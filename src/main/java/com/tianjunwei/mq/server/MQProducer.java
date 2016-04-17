@@ -39,8 +39,10 @@ public class MQProducer {
 	}
 
 	public void sendDataToCrQueue(Object obj) {
-        amqpTemplate.convertAndSend("queue_one_key", obj);
-       System.err.println(amqpTemplate.receiveAndConvert("queue_one_key"));
+        amqpTemplate.convertAndSend("queue_ones", obj);
+        amqpTemplate.convertAndSend("queue_ones", obj);
+        amqpTemplate.convertAndSend(obj);
+       //System.err.println(amqpTemplate.receiveAndConvert("queue_one_key"));
        
     }   
 }

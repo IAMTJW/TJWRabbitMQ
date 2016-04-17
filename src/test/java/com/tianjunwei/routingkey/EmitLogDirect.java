@@ -23,7 +23,7 @@ import com.rabbitmq.client.ConnectionFactory;
  * @version V1.0
  */
 public class EmitLogDirect {
-	private static final String EXCHANGE_NAME = "ex_logs_direct";
+	private static final String EXCHANGE_NAME = "my-mq-exchange";
 	private static final String[] SEVERITIES = { "info", "warning", "error" };
 
 	public static void main(String[] argv) throws java.io.IOException, TimeoutException {
@@ -40,7 +40,7 @@ public class EmitLogDirect {
 			String severity = getSeverity();
 			String message = severity + "_log :" + UUID.randomUUID().toString();
 			// 发布消息至转发器，指定routingkey
-			channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
+			channel.basicPublish(EXCHANGE_NAME, "queue_one", null, message.getBytes());
 			System.out.println(" [x] Sent '" + message + "'");
 		}
 

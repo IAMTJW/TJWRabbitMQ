@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tianjunwei.mq.client.MQConsumer;
 import com.tianjunwei.mq.server.MQProducer;
 
 /**
@@ -26,8 +25,6 @@ public class MQTest {
 	@Autowired
 	MQProducer mqProducer;
 	
-	@Autowired
-	private AmqpTemplate amqpTemplate;
 	
 	@Test
 	public void test(){

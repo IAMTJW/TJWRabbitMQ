@@ -25,7 +25,7 @@ import com.rabbitmq.client.ShutdownSignalException;
 * @version V1.0    
 */
 public class ReceiveLogsToConsole {
-	private final static String EXCHANGE_NAME = "ex_log";
+	private final static String EXCHANGE_NAME = "my-mq-exchange";
 	public static void main(String [] args) throws IOException, TimeoutException, ShutdownSignalException, ConsumerCancelledException, InterruptedException{
 		ConnectionFactory connectionFactory = new ConnectionFactory();
 		connectionFactory.setHost("localhost");

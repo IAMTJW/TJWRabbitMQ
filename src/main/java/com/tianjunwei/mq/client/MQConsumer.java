@@ -17,9 +17,9 @@ import org.springframework.amqp.core.MessageListener;
  * @modify by reason:
  * @version V1.0
  */
-public class MQConsumer implements  MessageListener{
+public class MQConsumer /*implements  MessageListener*/{
 	
-	@Override
+	/*@Override*/
     public void onMessage(Message message) {
         System.out.println(" data ----------------------------------------:" + message.getBody());
     }

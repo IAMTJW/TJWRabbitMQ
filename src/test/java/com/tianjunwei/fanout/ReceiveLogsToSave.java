@@ -41,7 +41,7 @@ public class ReceiveLogsToSave {
 		// 创建一个非持久的、唯一的且自动删除的队列
 		String queueName = channel.queueDeclare().getQueue();
 		// 为转发器指定队列，设置binding
-		channel.queueBind(queueName, EXCHANGE_NAME, "");
+		channel.queueBind("queue_one", EXCHANGE_NAME, "");
 
 		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 

@@ -23,7 +23,7 @@ import com.rabbitmq.client.QueueingConsumer;
  * @version V1.0
  */
 public class ReceiveLogsDirect {
-	private static final String EXCHANGE_NAME = "ex_logs_direct";
+	private static final String EXCHANGE_NAME = "my-mq-exchange";
 	private static final String[] SEVERITIES = { "info","warning", "error" };
 
 	public static void main(String[] argv) throws java.io.IOException, java.lang.InterruptedException, TimeoutException {
@@ -35,14 +35,15 @@ public class ReceiveLogsDirect {
 		// 声明direct类型转发器
 		channel.exchangeDeclare(EXCHANGE_NAME, "direct");
 
-		String queueName = channel.queueDeclare().getQueue();
+		//String queueName = channel.queueDeclare().getQueue();
 		String severity = getSeverity();
 		// 指定binding_key
-		channel.queueBind(queueName, EXCHANGE_NAME, severity);
+		channel.queueBind("queue_ones", EXCHANGE_NAME, "queue_one");
+		channel.queueBind("queue_ones", EXCHANGE_NAME, "queue_two");
 		System.out.println(" [*] Waiting for " + severity + " logs. To exit press CTRL+C");
 
 		QueueingConsumer consumer = new QueueingConsumer(channel);
-		channel.basicConsume(queueName, true, consumer);
+		channel.basicConsume("queue_ones", true, consumer);
 
 		while (true) {
 			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
