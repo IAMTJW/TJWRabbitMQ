@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+        http://www.springframework.org/schema/tx  
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/rabbit 
+        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd"
+	default-autowire="byName">
+
+	<!-- 连接服务配置 --> <!-- username="guest" password="guest" port="5672" -->
+	<rabbit:connection-factory id="connectionFactory"
+		host="localhost" 
+		channel-cache-size="25" 
+		username="guest"
+		password="guest" 
+		port="5672"/>
+
+	<bean id="rabbitAdmin" class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+		<constructor-arg ref="connectionFactory" />
+	</bean>
+
+	<!-- queue 队列声明 -->
+	<rabbit:queue id="queue_trace" durable="true" auto-delete="false"
+		exclusive="false" name="queue_trace" />
+	<rabbit:queue id="queue_info" durable="true" auto-delete="false"
+		exclusive="false" name="queue_info" />
+	<rabbit:queue id="queue_warn" durable="true" auto-delete="false"
+		exclusive="false" name="queue_warn" />
+	<rabbit:queue id="queue_debug" durable="true" auto-delete="false"
+		exclusive="false" name="queue_debug" />
+	<rabbit:queue id="queue_error" durable="true" auto-delete="false"
+		exclusive="false" name="queue_error" />
+
+
+	<!-- exchange queue binging key 绑定 -->
+	<rabbit:direct-exchange name="log_exchange"
+		durable="false" auto-delete="false" id="log_exchange">
+		<rabbit:bindings>
+			<rabbit:binding key="rout_trace" queue="queue_trace" /> <!-- 绑带Routing key 和队列名称 -->
+			<rabbit:binding key="rout_info" queue="queue_info" /> <!-- 绑带Routing key 和队列名称 -->
+			<rabbit:binding key="rout_debug" queue="queue_debug" /> <!-- 绑带Routing key 和队列名称 -->
+			<rabbit:binding key="rout_warn" queue="queue_warn" /> <!-- 绑带Routing key 和队列名称 -->
+			<rabbit:binding key="rout_error" queue="queue_error" /> <!-- 绑带Routing key 和队列名称 -->
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<!--spring amqp默认的是jackson的一个插件,目的将生产者生产的数据转换为json存入消息队列，由于fastjson的速度快于jackson,这里替换为fastjson的一个实现 -->
+	<bean id="jsonMessageConverter" class="com.tianjunwei.mq.util.FastJSONMessageConverter"></bean>
+
+	<!-- spring template声明 -->
+	<bean id="amqpTemplate" class="com.tianjunwei.mq.MyRabbitTemplate">
+		<constructor-arg ref="connectionFactory"></constructor-arg>
+		<property name="messageConverter" ref="jsonMessageConverter"></property>
+		<property name="store" value="true"></property>
+	</bean>
+	<bean id="mqProducer" class="com.tianjunwei.mq.server.MQProducer"></bean>
+
+	<rabbit:listener-container  connection-factory="connectionFactory" acknowledge="auto">
+	<rabbit:listener queue-names="queue_one" ref="queueOneLitener"
+		method="onMessage" />
+    </rabbit:listener-container>
+	<bean id="queueOneLitener" class="com.tianjunwei.mq.client.MQConsumer" />
+</beans>
