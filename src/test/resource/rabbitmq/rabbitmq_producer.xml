@@ -27,8 +27,6 @@
 	</bean>
 
 	<!-- queue 队列声明 -->
-	<rabbit:queue id="queue_trace" durable="true" auto-delete="false"
-		exclusive="false" name="queue_trace" />
 	<rabbit:queue id="queue_info" durable="true" auto-delete="false"
 		exclusive="false" name="queue_info" />
 	<rabbit:queue id="queue_warn" durable="true" auto-delete="false"
@@ -43,7 +41,6 @@
 	<rabbit:direct-exchange name="log_exchange"
 		durable="false" auto-delete="false" id="log_exchange">
 		<rabbit:bindings>
-			<rabbit:binding key="rout_trace" queue="queue_trace" /> <!-- 绑带Routing key 和队列名称 -->
 			<rabbit:binding key="rout_info" queue="queue_info" /> <!-- 绑带Routing key 和队列名称 -->
 			<rabbit:binding key="rout_debug" queue="queue_debug" /> <!-- 绑带Routing key 和队列名称 -->
 			<rabbit:binding key="rout_warn" queue="queue_warn" /> <!-- 绑带Routing key 和队列名称 -->
@@ -62,9 +59,9 @@
 	</bean>
 	<bean id="mqProducer" class="com.tianjunwei.mq.server.MQProducer"></bean>
 
-	<rabbit:listener-container  connection-factory="connectionFactory" acknowledge="auto">
+	<!-- <rabbit:listener-container  connection-factory="connectionFactory" acknowledge="auto">
 	<rabbit:listener queue-names="queue_one" ref="queueOneLitener"
 		method="onMessage" />
     </rabbit:listener-container>
-	<bean id="queueOneLitener" class="com.tianjunwei.mq.client.MQConsumer" />
+	<bean id="queueOneLitener" class="com.tianjunwei.mq.client.MQConsumer" /> -->
 </beans>

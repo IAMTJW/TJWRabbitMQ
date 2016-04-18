@@ -6,12 +6,10 @@
  */  
 package com.tianjunwei.log.dao;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.tianjunwei.log.dao.entity.LogInfo;
 import com.tianjunwei.mq.MyRabbitTemplate;
 
 /**
@@ -22,96 +20,24 @@ import com.tianjunwei.mq.MyRabbitTemplate;
  * @modify by reason:
  * @version V1.0
  */
-public class MqLogger implements Logger {
+public class MqLogger {
 
 	private static final String exchange = "log_exchange";
-	private static final String rout_trace = "rout_trace";
 	private static final String rout_info = "rout_info";
 	private static final String rout_debug = "rout_debug";
 	private static final String rout_warn = "rout_warn";
 	private static final String rout_error = "rout_error";
 	
-	Logger log ;
+	private LogInfo logInfo;
 	
 	@Autowired
 	private MyRabbitTemplate amqpTemplate;
 	
 	public MqLogger(Class<?> clazz) {
-		log = LoggerFactory.getLogger(clazz);
-	}
-	
-	/**
-	 *
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public String getName() {
-		return log.getName();
+		logInfo = new LogInfo();
+		logInfo.setClassName(clazz.getName());
 	}
 
-	/**
-	 *
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isTraceEnabled() {
-		return log.isTraceEnabled();
-	}
-
-	/**
-	 *
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(String msg) {
-		log.trace(msg);
-		if(amqpTemplate.isStore()){
-			amqpTemplate.convertAndSend(exchange, rout_trace, msg);
-		}
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(String format, Object arg) {
-		log.trace(format, arg);
-		if(amqpTemplate.isStore()){
-			amqpTemplate.convertAndSend(exchange, rout_trace, arg);
-		}
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(String format, Object arg1, Object arg2) {
-		log.trace(format, arg1, arg2);
-		if(amqpTemplate.isStore()){
-			amqpTemplate.convertAndSend(exchange, rout_trace, arg1.toString()+arg2.toString());
-		}
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(String format, Object... arguments) {
-		log.trace(format, arguments);
-	}
 
 	/**
 	 *
@@ -119,274 +45,10 @@ public class MqLogger implements Logger {
 	 * @param t 
 	 * 2016年4月17日
 	 */ 
-	@Override
-	public void trace(String msg, Throwable t) {
-		log.trace(msg, t);
-		if(amqpTemplate.isStore()){
-			amqpTemplate.convertAndSend(exchange, rout_trace,t);
-		}
-		
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isTraceEnabled(Marker marker) {
-		return log.isTraceEnabled(marker);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(Marker marker, String msg) {
-		log.trace(marker, msg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(Marker marker, String format, Object arg) {
-		log.trace(marker, format, arg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(Marker marker, String format, Object arg1, Object arg2) {
-		log.trace(marker, format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param argArray 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(Marker marker, String format, Object... argArray) {
-		log.trace(marker, format, argArray);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg
-	 * @param t 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void trace(Marker marker, String msg, Throwable t) {
-		log.trace(marker, msg, t);
-	}
-
-	/**
-	 *
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isDebugEnabled() {
-		return log.isDebugEnabled();
-	}
-
-	/**
-	 *
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(String msg) {
-		log.debug(msg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(String format, Object arg) {
-		log.debug(format, arg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(String format, Object arg1, Object arg2) {
-		log.debug(format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(String format, Object... arguments) {
-		log.debug(format, arguments);
-	}
-
-	/**
-	 *
-	 * @param msg
-	 * @param t 
-	 * 2016年4月17日
-	 */ 
-	@Override
 	public void debug(String msg, Throwable t) {
-		log.debug(msg, t);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isDebugEnabled(Marker marker) {
-		return log.isDebugEnabled(marker);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(Marker marker, String msg) {
-		log.debug(marker, msg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(Marker marker, String format, Object arg) {
-		log.debug(marker, format, arg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(Marker marker, String format, Object arg1, Object arg2) {
-		log.debug(marker, format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(Marker marker, String format, Object... arguments) {
-		log.debug(marker, format, arguments);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg
-	 * @param t 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void debug(Marker marker, String msg, Throwable t) {
-		log.debug(marker, msg, t);
-	}
-
-	/**
-	 *
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isInfoEnabled() {
-		return log.isInfoEnabled();
-	}
-
-	/**
-	 *
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(String msg) {
-		log.info(msg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(String format, Object arg) {
-		log.info(format, arg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(String format, Object arg1, Object arg2) {
-		log.info(format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(String format, Object... arguments) {
-		log.info(format, arguments);
+		logInfo.setLogInfo(msg);
+		logInfo.setException(t.getMessage());
+		amqpTemplate.convertAndSend(exchange, rout_debug,logInfo);
 	}
 
 	/**
@@ -395,134 +57,10 @@ public class MqLogger implements Logger {
 	 * @param t 
 	 * 2016年4月17日
 	 */ 
-	@Override
 	public void info(String msg, Throwable t) {
-		log.info(msg, t);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isInfoEnabled(Marker marker) {
-		return log.isInfoEnabled(marker);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(Marker marker, String msg) {
-		log.info(marker, msg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(Marker marker, String format, Object arg) {
-		log.info(marker, format, arg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(Marker marker, String format, Object arg1, Object arg2) {
-		log.info(marker, format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(Marker marker, String format, Object... arguments) {
-		log.info(marker, format, arguments);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg
-	 * @param t 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void info(Marker marker, String msg, Throwable t) {
-		log.info(marker, msg, t);
-	}
-
-	/**
-	 *
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isWarnEnabled() {
-		return log.isWarnEnabled();
-	}
-
-	/**
-	 *
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(String msg) {
-		log.warn(msg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(String format, Object arg) {
-		log.warn(format, arg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(String format, Object... arguments) {
-		log.warn(format, arguments);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(String format, Object arg1, Object arg2) {
-		log.warn(format, arg1, arg2);
+		logInfo.setLogInfo(msg);
+		logInfo.setException(t.getMessage());
+		amqpTemplate.convertAndSend(exchange,rout_info, logInfo);
 	}
 
 	/**
@@ -531,134 +69,10 @@ public class MqLogger implements Logger {
 	 * @param t 
 	 * 2016年4月17日
 	 */ 
-	@Override
 	public void warn(String msg, Throwable t) {
-		log.warn(msg, t);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isWarnEnabled(Marker marker) {
-		return log.isWarnEnabled(marker);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(Marker marker, String msg) {
-		log.warn(marker, msg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(Marker marker, String format, Object arg) {
-		log.warn(marker, format, arg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(Marker marker, String format, Object arg1, Object arg2) {
-		log.warn(marker, format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(Marker marker, String format, Object... arguments) {
-		log.warn(marker, format, arguments);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg
-	 * @param t 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void warn(Marker marker, String msg, Throwable t) {
-		log.warn(marker, msg, t);
-	}
-
-	/**
-	 *
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isErrorEnabled() {
-		return log.isErrorEnabled();
-	}
-
-	/**
-	 *
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(String msg) {
-		log.error(msg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(String format, Object arg) {
-		log.error(format, arg);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(String format, Object arg1, Object arg2) {
-		log.error(format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(String format, Object... arguments) {
-		log.error(format, arguments);
+		logInfo.setLogInfo(msg);
+		logInfo.setException(t.getMessage());
+		amqpTemplate.convertAndSend(exchange,rout_warn, logInfo);
 	}
 
 	/**
@@ -667,80 +81,23 @@ public class MqLogger implements Logger {
 	 * @param t 
 	 * 2016年4月17日
 	 */ 
-	@Override
 	public void error(String msg, Throwable t) {
-		log.error(msg, t);
+		logInfo.setLogInfo(msg);
+		logInfo.setException(t.getMessage());
+		amqpTemplate.convertAndSend(exchange,rout_error, logInfo);
+	}
+	/**
+	 * @return the amqpTemplate
+	 */
+	public AmqpTemplate getAmqpTemplate() {
+		return amqpTemplate;
 	}
 
 	/**
-	 *
-	 * @param marker
-	 * @return 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public boolean isErrorEnabled(Marker marker) {
-		return log.isErrorEnabled(marker);
+	 * @param amqpTemplate the amqpTemplate to set
+	 */
+	public void setAmqpTemplate(MyRabbitTemplate amqpTemplate) {
+		this.amqpTemplate = amqpTemplate;
 	}
 
-	/**
-	 *
-	 * @param marker
-	 * @param msg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(Marker marker, String msg) {
-		log.error(marker, msg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(Marker marker, String format, Object arg) {
-		log.error(marker, format, arg);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arg1
-	 * @param arg2 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(Marker marker, String format, Object arg1, Object arg2) {
-		log.error(marker, format, arg1, arg2);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param format
-	 * @param arguments 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(Marker marker, String format, Object... arguments) {
-		log.error(marker, format, arguments);
-	}
-
-	/**
-	 *
-	 * @param marker
-	 * @param msg
-	 * @param t 
-	 * 2016年4月17日
-	 */ 
-	@Override
-	public void error(Marker marker, String msg, Throwable t) {
-		log.error(marker, msg, t);
-	}
-	
 }
