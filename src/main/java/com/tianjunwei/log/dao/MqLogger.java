@@ -28,15 +28,15 @@ public class MqLogger {
 	private static final String rout_warn = "rout_warn";
 	private static final String rout_error = "rout_error";
 	
-	private LogInfo logInfo;
+	private LogInfo logInfo = new LogInfo();
 	
 	@Autowired
 	private MyRabbitTemplate amqpTemplate;
 	
-	public MqLogger(Class<?> clazz) {
+	/*public MqLogger(Class<?> clazz) {
 		logInfo = new LogInfo();
 		logInfo.setClassName(clazz.getName());
-	}
+	}*/
 
 
 	/**
