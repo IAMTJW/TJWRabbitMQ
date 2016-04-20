@@ -38,11 +38,11 @@ public class ReceiveLogsDirect {
 		//String queueName = channel.queueDeclare().getQueue();
 		String severity = getSeverity();
 		// 指定binding_key
-		channel.queueBind("queue_trace", EXCHANGE_NAME, "rout_trace");
+		channel.queueBind("queue_info", EXCHANGE_NAME, "rout_info");
 		System.out.println(" [*] Waiting for " + severity + " logs. To exit press CTRL+C");
 
 		QueueingConsumer consumer = new QueueingConsumer(channel);
-		channel.basicConsume("queue_trace", true, consumer);
+		channel.basicConsume("queue_info", true, consumer);
 
 		while (true) {
 			QueueingConsumer.Delivery delivery = consumer.nextDelivery();

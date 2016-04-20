@@ -38,8 +38,8 @@ public class MQProducer {
 	}
 
 	public void sendDataToCrQueue(Object obj) {
-        amqpTemplate.convertAndSend("log-exchange","rout_info", obj);
-        amqpTemplate.convertAndSend("log-exchange","rout_info", obj);
+        amqpTemplate.convertAndSend("log_exchange","rout_info", obj);
+        amqpTemplate.convertAndSend("log_exchange","rout_info", obj);
         
        //System.err.println(amqpTemplate.receiveAndConvert("queue_one_key"));
        

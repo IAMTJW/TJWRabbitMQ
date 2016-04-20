@@ -3,12 +3,10 @@ package com.tianjunwei.mq;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tianjunwei.log.dao.MqLogger;
 import com.tianjunwei.mq.server.MQProducer;
 
 /**
@@ -30,11 +28,11 @@ public class MQTest {
 	@Test
 	public void test(){
 		mqProducer.sendDataToCrQueue("hello rabbitmq");
-		MqLogger mqLogger = new MqLogger(MQTest.class);
+	/*	MqLogger mqLogger = new MqLogger(MQTest.class);
 		mqLogger.debug("debug", new Throwable("debug"));
 		mqLogger.info("info", new Throwable("info"));
 		mqLogger.warn("warn", new Throwable("warn"));
-		mqLogger.error("error", new Throwable("error"));
+		mqLogger.error("error", new Throwable("error"));*/
 	}
 	
 }
