@@ -7,6 +7,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianjunwei.log.dao.MqLogger;
 
+/**
+* @Title: MQLoggerController.java  
+* @Package com.tianjunwei.controller  
+* @Description: 测试类
+* @author tianjunwei  tiantianjunwei@126.com   
+* @date 2016年4月21日 下午11:16:09  
+* @version V1.0
+ */
+
 @Controller
 @RequestMapping("/mq")
 public class MQLoggerController {

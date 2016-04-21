@@ -1,3 +1,4 @@
+
 package com.tianjunwei.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianjunwei.log.dao.MqLogger;
 
+/**
+* @Title: MQLoggerController2.java  
+* @Package com.tianjunwei.controller  
+* @Description: 测试类 
+* @author tianjunwei  tiantianjunwei@126.com   
+* @date 2016年4月21日 下午11:15:52  
+* @version V1.0
+ */
 @Controller
 @RequestMapping("/mq2")
 public class MQLoggerController2 {
