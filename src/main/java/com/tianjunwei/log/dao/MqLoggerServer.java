@@ -6,6 +6,7 @@
  */  
 package com.tianjunwei.log.dao;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tianjunwei.log.dao.entity.LogInfo;
@@ -25,18 +26,27 @@ public class MqLoggerServer {
 	@Autowired
 	private MyRabbitTemplate amqpTemplate;
 	
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	private static final String sqlPrfix = "com.tianjunwei.log.dao.entity.Login.";
+	
 	public void debug(){
 		LogInfo debug = JSON.parseObject(amqpTemplate.receiveAndConvert("queue_debug").toString(), LogInfo.class) ;
+		sqlSessionTemplate.insert(sqlPrfix+"debug", debug);
 	}
 	
 	public void info(){
-		LogInfo debug = JSON.parseObject(amqpTemplate.receiveAndConvert("queue_info").toString(), LogInfo.class) ;
+		LogInfo info = JSON.parseObject(amqpTemplate.receiveAndConvert("queue_info").toString(), LogInfo.class) ;
+		sqlSessionTemplate.insert(sqlPrfix+"info", info);
 	}
 	
 	public void warn(){
-		LogInfo debug = JSON.parseObject(amqpTemplate.receiveAndConvert("queue_warn").toString(), LogInfo.class) ;			
+		LogInfo warn = JSON.parseObject(amqpTemplate.receiveAndConvert("queue_warn").toString(), LogInfo.class) ;			
+		sqlSessionTemplate.insert(sqlPrfix+"warn", warn);
 	}
 	public void error(){
-		LogInfo debug = JSON.parseObject(amqpTemplate.receiveAndConvert("queue_error").toString(), LogInfo.class) ;
+		LogInfo error = JSON.parseObject(amqpTemplate.receiveAndConvert("queue_error").toString(), LogInfo.class) ;
+		sqlSessionTemplate.insert(sqlPrfix+"error", error);
 	}
 }
