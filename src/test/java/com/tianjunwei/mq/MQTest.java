@@ -28,7 +28,7 @@ public class MQTest {
 	@Test
 	public void test(){
 		mqProducer.sendDataToCrQueue("hello rabbitmq");
-	/*	MqLogger mqLogger = new MqLogger(MQTest.class);
+	/*	MqLoggerClient mqLogger = new MqLoggerClient(MQTest.class);
 		mqLogger.debug("debug", new Throwable("debug"));
 		mqLogger.info("info", new Throwable("info"));
 		mqLogger.warn("warn", new Throwable("warn"));

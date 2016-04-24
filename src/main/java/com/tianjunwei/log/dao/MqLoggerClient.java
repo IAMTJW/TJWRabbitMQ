@@ -1,6 +1,6 @@
 /** 
  * @ProjectName: TTRabbitMQ 
- * @FileName: MqLogger.java 
+ * @FileName: MqLoggerClient.java 
  * @Date: 2016年4月17日 
  * @Copyright: 2016 tianjunwei All rights reserved. 
  */  
@@ -20,7 +20,7 @@ import com.tianjunwei.mq.MyRabbitTemplate;
  * @modify by reason:
  * @version V1.0
  */
-public class MqLogger {
+public class MqLoggerClient {
 
 	private static final String exchange = "log_exchange";
 	private static final String rout_info = "rout_info";
@@ -33,7 +33,7 @@ public class MqLogger {
 	@Autowired
 	private MyRabbitTemplate amqpTemplate;
 	
-	/*public MqLogger(Class<?> clazz) {
+	/*public MqLoggerClient(Class<?> clazz) {
 		logInfo = new LogInfo();
 		logInfo.setClassName(clazz.getName());
 	}*/

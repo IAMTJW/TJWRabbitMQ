@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianjunwei.log.dao.MqLogger;
+import com.tianjunwei.log.dao.MqLoggerClient;
 
 /**
 * @Title: MQLoggerController2.java  
@@ -21,7 +21,7 @@ import com.tianjunwei.log.dao.MqLogger;
 public class MQLoggerController2 {
 	
 	@Autowired
-	MqLogger mq;
+	MqLoggerClient mq;
 	
 	
 	@ResponseBody
