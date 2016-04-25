@@ -18,6 +18,7 @@ public class LogInfo {
 	private int id;
 	private String className;
 	private String logInfo;
+	private int exceptionType;
 	private String exception;
 	private String createTime;
 	/**
@@ -79,5 +80,11 @@ public class LogInfo {
 	 */
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public int getExceptionType() {
+		return exceptionType;
+	}
+	public void setExceptionType(int exceptionType) {
+		this.exceptionType = exceptionType;
 	}
 }

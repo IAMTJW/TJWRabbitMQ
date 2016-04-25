@@ -4,15 +4,15 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianjunwei.log.dao.entity.LogInfo">
 	<insert id="debug">
-		insert into tbl_loginfo () values()
+		insert into tbl_loginfo (className,logInfo,exceptionType,createTime,exception) values(#{className},#{logInfo},#{exceptionType},#{createTime},#{exception})
 	</insert>
 	<insert id="debug">
-		insert into tbl_loginfo () values()
+		insert into tbl_loginfo (className,logInfo,exceptionType,createTime,exception) values(#{className},#{logInfo},#{exceptionType},#{createTime},#{exception})
 	</insert>
 	<insert id="debug">
-		insert into tbl_loginfo () values()
+		insert into tbl_loginfo (className,logInfo,exceptionType,createTime,exception) values(#{className},#{logInfo},#{exceptionType},#{createTime},#{exception})
 	</insert>
 	<insert id="debug">
-		insert into tbl_loginfo () values()
+		insert into tbl_loginfo (className,logInfo,exceptionType,createTime,exception) values(#{className},#{logInfo},#{exceptionType},#{createTime},#{exception})
 	</insert>
 </mapper>

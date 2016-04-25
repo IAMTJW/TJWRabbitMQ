@@ -32,4 +32,6 @@
 	
 	<bean id="mq" class="com.tianjunwei.log.dao.MqLoggerClient" scope="prototype"></bean>
 	
+	<bean id="mqLoggerServer" class="com.tianjunwei.log.dao.MqLoggerServer"></bean>
+	
 </beans>

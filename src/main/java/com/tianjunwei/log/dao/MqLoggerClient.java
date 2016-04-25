@@ -9,6 +9,7 @@ package com.tianjunwei.log.dao;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSON;
 import com.tianjunwei.log.dao.entity.LogInfo;
 import com.tianjunwei.mq.MyRabbitTemplate;
 
@@ -48,7 +49,8 @@ public class MqLoggerClient {
 	public void debug(String msg, Throwable t) {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
-		amqpTemplate.convertAndSend(exchange, rout_debug,logInfo);
+		logInfo.setExceptionType(1);
+		amqpTemplate.convertAndSend(exchange, rout_debug,JSON.toJSONString(logInfo));
 	}
 
 	/**
@@ -60,7 +62,8 @@ public class MqLoggerClient {
 	public void info(String msg, Throwable t) {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
-		amqpTemplate.convertAndSend(exchange,rout_info, logInfo);
+		logInfo.setExceptionType(0);
+		amqpTemplate.convertAndSend(exchange,rout_info, JSON.toJSONString(logInfo));
 	}
 
 	/**
@@ -72,7 +75,8 @@ public class MqLoggerClient {
 	public void warn(String msg, Throwable t) {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
-		amqpTemplate.convertAndSend(exchange,rout_warn, logInfo);
+		logInfo.setExceptionType(2);
+		amqpTemplate.convertAndSend(exchange,rout_warn, JSON.toJSONString(logInfo));
 	}
 
 	/**
@@ -84,7 +88,8 @@ public class MqLoggerClient {
 	public void error(String msg, Throwable t) {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
-		amqpTemplate.convertAndSend(exchange,rout_error, logInfo);
+		logInfo.setExceptionType(3);
+		amqpTemplate.convertAndSend(exchange,rout_error, JSON.toJSONString(logInfo));
 	}
 	/**
 	 * @return the amqpTemplate
