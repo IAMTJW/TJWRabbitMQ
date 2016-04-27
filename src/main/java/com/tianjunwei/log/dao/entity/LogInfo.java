@@ -16,7 +16,6 @@ package com.tianjunwei.log.dao.entity;
 */
 public class LogInfo {
 	private int id;
-	private String className;
 	private String logInfo;
 	private int exceptionType;
 	private String exception;
@@ -32,18 +31,6 @@ public class LogInfo {
 	 */
 	public void setId(int id) {
 		this.id = id;
-	}
-	/**
-	 * @return the className
-	 */
-	public String getClassName() {
-		return className;
-	}
-	/**
-	 * @param className the className to set
-	 */
-	public void setClassName(String className) {
-		this.className = className;
 	}
 	/**
 	 * @return the logInfo

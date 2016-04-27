@@ -50,7 +50,7 @@ public class MqLoggerClient {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
 		logInfo.setExceptionType(1);
-		amqpTemplate.convertAndSend(exchange, rout_debug,JSON.toJSONString(logInfo));
+		amqpTemplate.convertAndSend(exchange, rout_debug,logInfo);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class MqLoggerClient {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
 		logInfo.setExceptionType(0);
-		amqpTemplate.convertAndSend(exchange,rout_info, JSON.toJSONString(logInfo));
+		amqpTemplate.convertAndSend(exchange,rout_info, logInfo);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class MqLoggerClient {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
 		logInfo.setExceptionType(2);
-		amqpTemplate.convertAndSend(exchange,rout_warn, JSON.toJSONString(logInfo));
+		amqpTemplate.convertAndSend(exchange,rout_warn, logInfo);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class MqLoggerClient {
 		logInfo.setLogInfo(msg);
 		logInfo.setException(t.getMessage());
 		logInfo.setExceptionType(3);
-		amqpTemplate.convertAndSend(exchange,rout_error, JSON.toJSONString(logInfo));
+		amqpTemplate.convertAndSend(exchange,rout_error, logInfo);
 	}
 	/**
 	 * @return the amqpTemplate

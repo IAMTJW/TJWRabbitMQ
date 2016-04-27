@@ -26,13 +26,13 @@ import com.alibaba.fastjson.JSON;
  */
 public class MqLoggerServer implements MessageListener {
 
-	@Autowired
 	private MyRabbitTemplate amqpTemplate;
 
-	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 
-	private static final String sqlPrfix = "com.tianjunwei.log.dao.entity.Login.";
+	
+
+	private static final String sqlPrfix = "com.tianjunwei.log.dao.entity.LogInfo.";
 
 	public void debug() {
 		LogInfo debug = JSON.parseObject(
@@ -63,10 +63,27 @@ public class MqLoggerServer implements MessageListener {
 
 	@Override
 	public void onMessage(Message message) {
-
-		System.out.println(message.getBody());
-		byte[] data = message.getBody();
+		
+		String data = new String(message.getBody());
+		System.out.println(data);
 		LogInfo info = JSON.parseObject(data, LogInfo.class);
 		sqlSessionTemplate.insert(sqlPrfix + "info", info);
 	}
+	
+	public MyRabbitTemplate getAmqpTemplate() {
+		return amqpTemplate;
+	}
+
+	public void setAmqpTemplate(MyRabbitTemplate amqpTemplate) {
+		this.amqpTemplate = amqpTemplate;
+	}
+
+	public SqlSessionTemplate getSqlSessionTemplate() {
+		return sqlSessionTemplate;
+	}
+
+	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+		this.sqlSessionTemplate = sqlSessionTemplate;
+	}
+	
 }

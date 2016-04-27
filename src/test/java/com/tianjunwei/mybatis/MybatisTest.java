@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tianjunwei.log.dao.entity.Log;
+import com.tianjunwei.log.dao.entity.LogInfo;
 
 /**    
 * @Title: MybatisTest.java  
@@ -27,13 +28,23 @@ import com.tianjunwei.log.dao.entity.Log;
 @ContextConfiguration(locations = "classpath:applicationContext_test.xml")
 public class MybatisTest {
 	
+	private static final String sqlPrfix = "com.tianjunwei.log.dao.entity.LogInfo.";
+	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	@Test 
+	//@Test 
 	public void get(){
 		Log log = sqlSessionTemplate.selectOne(Log.class.getName()+".get");
 		System.err.println(log.getLogInfo());
+	}
+	@Test
+	public void insert(){
+		LogInfo info = new LogInfo();
+		info.setException("dfdf");
+		info.setExceptionType(1);
+		info.setLogInfo("hello info");
+		sqlSessionTemplate.insert(sqlPrfix + "info", info);
 	}
 
 }

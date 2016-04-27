@@ -3,5 +3,6 @@
 <configuration>
 	<mappers>
 		<mapper resource="com/tianjunwei/log/dao/mapper/log-mapper.xml"></mapper>
+		<mapper resource="com/tianjunwei/log/dao/mapper/loginfo-mapper.xml"></mapper>
 	</mappers>
 </configuration>
