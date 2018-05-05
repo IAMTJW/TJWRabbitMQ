@@ -33,13 +33,17 @@ public class Receiver {
 		//创建连接
 		Connection connection = factory.newConnection();
 		//创建通道
-		Channel channel = connection.createChannel();
+		final Channel channel = connection.createChannel();
 
 		//设置持久化为true
 		boolean durable = true;
 		//指定要监听的队列名称
 	    channel.queueDeclare(QUEUE_NAME, durable, false, false, null);
 	    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+	    
+	    //设置最大服务转发消息数量  
+	    int prefetchCount = 1;  
+	    channel.basicQos(prefetchCount);  
 	    
 	    //创建消费监听者
 	    Consumer consumer = new DefaultConsumer(channel) {
@@ -50,7 +54,11 @@ public class Receiver {
 	    		  try{
 	    			  String message = new String(body, "UTF-8");
 	    			  System.out.println(" [x] Received '" + message + "'");
-	    		  }finally {
+	    			  Thread.sleep(500);
+	    		  } catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
 	    			  //收到消息确认
 	    			  channel.basicAck(envelope.getDeliveryTag(), false);
 				}

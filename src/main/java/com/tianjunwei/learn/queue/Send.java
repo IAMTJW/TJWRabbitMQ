@@ -31,12 +31,13 @@ public class Send {
 		boolean durable = true;
 		//设置queue名称
 		channel.queueDeclare(QUEUE_NAME, durable, false, false, null);
-		int i =0;
-		String message = "Hello World!"+i;
-		//向queue中发送数据
-		channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
-		System.out.println(" [x] Sent '" + message + "'");
-		i++;
+		for (int j = 0; j < 100; j++) {
+			String message = "Hello World!"+j;
+			//向queue中发送数据
+			channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
+			System.out.println(" [x] Sent '" + message + "'");
+		}
+		
 		channel.close();
 		connection.close();
 	}
