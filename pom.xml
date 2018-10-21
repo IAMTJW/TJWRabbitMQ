@@ -2,9 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tianjunwei</groupId>
-	<artifactId>ttrabbitmq</artifactId>
+	<artifactId>mq</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<modules>
+		<module>activemq</module>
+		<module>rabbitmq</module>
+		<module>rocketmq</module>
+	</modules>
+	<packaging>pom</packaging>
 	<name>cache</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,6 +18,13 @@
 		<rabbitmq>3.6.0</rabbitmq>
 	</properties>
 	<dependencies>
+
+		<!-- http://mvnrepository.com/artifact/com.alibaba.rocketmq/rocketmq-client -->
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-client</artifactId>
+			<version>4.2.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.activemq</groupId>

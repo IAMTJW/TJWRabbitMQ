@@ -1,6 +1,0 @@
-<html>
-<head>hello</head>
-<body>
-	hello world
-</body>
-</html>
