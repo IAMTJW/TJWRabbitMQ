@@ -1,2 +1,1 @@
-# TJWRabbitMQ
-rabbitmq一个简单的学习工程
+mq学习工程
