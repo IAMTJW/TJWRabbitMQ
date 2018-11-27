@@ -17,9 +17,8 @@ public class Consumer {
 
     public static void main(String[] args) throws InterruptedException, MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("rmq-group");
-
         consumer.setNamesrvAddr("localhost:9876");
-        consumer.setInstanceName("rmq-instance");
+        //consumer.setInstanceName("rmq-instance2");
         consumer.subscribe("TopicA-test", "TagA");
 
         consumer.registerMessageListener(new MessageListenerConcurrently() {
