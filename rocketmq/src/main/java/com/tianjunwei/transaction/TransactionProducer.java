@@ -18,7 +18,7 @@ public class TransactionProducer {
 
     public static void main(String [] args) throws Exception{
 
-        final TransactionMQProducer producer = new TransactionMQProducer("rmq-group1");
+        final TransactionMQProducer producer = new TransactionMQProducer("rmq-transaction");
         producer.setNamesrvAddr("localhost:9876");
 
         //事务回查最小并发数

@@ -16,7 +16,6 @@ public class Producer {
     public static void main(String[] args) throws MQClientException, InterruptedException {
         DefaultMQProducer producer = new DefaultMQProducer("rmq-group");
         producer.setNamesrvAddr("localhost:9876");
-        //producer.setInstanceName("rmq-instance");
         producer.start();
         try {
             for (int i = 0; i < 3; i++) {
@@ -31,27 +30,7 @@ public class Producer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int i = 0;
-        while (true) {
-
-            try {
-                Message msg = new Message("TopicA-test",// topic
-                        "TagA",// tag
-                        (new Date() + "Hello RocketMQ ,QuickStart 11"+i)
-                                .getBytes()// body
-                );
-                SendResult sendResult = producer.send(msg);
-                System.out.println(sendResult);
-
-                Thread.sleep(4000);
-                i++;
-
-            } catch (Exception e) {
-
-            }
-
-        }
-        // producer.shutdown();
+       producer.shutdown();
     }
 
 }

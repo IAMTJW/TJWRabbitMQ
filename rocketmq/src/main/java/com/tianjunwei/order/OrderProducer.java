@@ -24,9 +24,6 @@ public class OrderProducer {
 
             producer.start();
 
-            // String[] tags = new String[] { "TagA", "TagB", "TagC", "TagD",
-            // "TagE" };
-
             for (int i = 1; i <= 5; i++) {
 
                 Message msg = new Message("TopicOrderTest", "order_1", "KEY" + i, ("order_1 " + i).getBytes());
