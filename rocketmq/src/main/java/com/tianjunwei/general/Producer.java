@@ -1,4 +1,4 @@
-package com.tianjunwei;
+package com.tianjunwei.general;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
