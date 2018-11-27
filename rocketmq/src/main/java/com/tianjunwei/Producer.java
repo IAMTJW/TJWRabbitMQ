@@ -11,7 +11,7 @@ import java.util.Date;
  * @author tianjunwei
  * 2018/10/21 16:21
  */
-public class Produce {
+public class Producer {
 
     public static void main(String[] args) throws MQClientException, InterruptedException {
         DefaultMQProducer producer = new DefaultMQProducer("rmq-group");
@@ -22,13 +22,31 @@ public class Produce {
             for (int i = 0; i < 3; i++) {
                 Message msg = new Message("TopicA-test",// topic
                         "TagA",// tag
-                        (new Date() + "Hello RocketMQ ,QuickStart" + i)
+                        (new Date() + "Hello RocketMQ ,QuickStart 11" + i)
                                 .getBytes()// body
                 );
                 SendResult sendResult = producer.send(msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        while (true) {
+
+            try {
+                Message msg = new Message("TopicA-test",// topic
+                        "TagA",// tag
+                        (new Date() + "Hello RocketMQ ,QuickStart 11")
+                                .getBytes()// body
+                );
+                SendResult sendResult = producer.send(msg);
+
+                Thread.sleep(60000);
+
+            } catch (Exception e) {
+
+            }
+
         }
         // producer.shutdown();
     }
