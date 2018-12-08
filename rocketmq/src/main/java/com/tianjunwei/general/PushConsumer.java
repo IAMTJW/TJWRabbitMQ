@@ -13,7 +13,7 @@ import java.util.List;
  * @author tianjunwei
  * 2018/10/21 16:22
  */
-public class Consumer {
+public class PushConsumer {
 
     public static void main(String[] args) throws InterruptedException, MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("rmq-group");
