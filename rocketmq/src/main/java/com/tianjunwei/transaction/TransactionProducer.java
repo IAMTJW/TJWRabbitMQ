@@ -36,7 +36,6 @@ public class TransactionProducer {
         producer.start();
 
         //服务器回调producer,检查本地事务分支成功还是失败
-
         producer.setTransactionCheckListener(new TransactionCheckListener() {
 
             @Override
