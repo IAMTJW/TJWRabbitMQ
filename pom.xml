@@ -10,7 +10,8 @@
 		<module>rocketmq</module>
 		<module>kafka</module>
 		<module>limit</module>
-	</modules>
+        <module>algorithm</module>
+    </modules>
 	<packaging>pom</packaging>
 	<name>my.learn</name>
 	<properties>
