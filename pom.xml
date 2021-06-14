@@ -18,7 +18,7 @@
 	<name>my.learn</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.2.4.RELEASE</spring.version>
+		<spring.version>4.3.21.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
 		<rabbitmq>4.8.0</rabbitmq>
 	</properties>
