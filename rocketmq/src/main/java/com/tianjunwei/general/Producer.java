@@ -18,10 +18,10 @@ public class Producer {
         producer.setNamesrvAddr("localhost:9876");
         producer.start();
         try {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 Message msg = new Message("TopicA-test",// topic
-                        "TagA",// tag
-                        (new Date() + "Hello RocketMQ ,QuickStart 11" + i)
+                        "",// tag
+                        ("Hello RocketMQ ,QuickStart data" + i)
                                 .getBytes()// body
                 );
                 SendResult sendResult = producer.send(msg);

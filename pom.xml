@@ -11,6 +11,8 @@
 		<module>kafka</module>
 		<module>limit</module>
         <module>algorithm</module>
+        <module>test</module>
+        <module>springboot2</module>
     </modules>
 	<packaging>pom</packaging>
 	<name>my.learn</name>

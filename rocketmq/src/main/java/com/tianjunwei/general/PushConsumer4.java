@@ -14,21 +14,20 @@ import java.util.List;
  * @author tianjunwei
  * 2018/10/21 16:22
  */
-public class PushConsumer {
+public class PushConsumer4 {
 
     public static void main(String[] args) throws InterruptedException, MQClientException {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("rmq-group2");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("rmq-group");
         consumer.setNamesrvAddr("localhost:9876");
         consumer.setInstanceName("rmq-instance3");
         consumer.subscribe("TopicA-test","");
         consumer.setMessageModel(MessageModel.CLUSTERING);
 
-
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             public ConsumeConcurrentlyStatus consumeMessage(
                     List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
                 for (MessageExt msg : msgs) {
-                    System.out.println(new String(msg.getBody()) + " " + System.currentTimeMillis() / 1000);
+                    System.out.println(new String(msg.getBody()));
                 }
                 System.err.println("queueId" + context.getMessageQueue().getQueueId());
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
